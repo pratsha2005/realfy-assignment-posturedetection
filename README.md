@@ -14,11 +14,8 @@ A real-time posture detection application for workout exercises, built with Reac
   - [Pose Detection](#pose-detection)
   - [Angle Calculation](#angle-calculation)
   - [Feedback System](#feedback-system)
-- [Project Structure](#project-structure)
-- [Code Walkthrough](#code-walkthrough)
 - [Customization](#customization)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## ✨ Features
 
