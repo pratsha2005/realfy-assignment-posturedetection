@@ -76,7 +76,7 @@ function PushUps() {
                 const knee = [result.landmarks[0][25].x, result.landmarks[0][25].y]
                 // Calculate Elbow Angle
                 const angle1 = calculateAngle(shoulder, elbow, wrist)
-                setElbowAngle(angle2)
+                setElbowAngle(angle1)
                 // Calculate Back Angle
                 const angle2 = calculateAngle(shoulder, hip, knee)
                 setBackAngle(angle2)
