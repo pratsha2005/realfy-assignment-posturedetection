@@ -2,7 +2,7 @@
 
 A real-time posture detection application for workout exercises, built with React, MediaPipe and Webcam integration. The application provides immediate feedback on your form during exercises, helping you maintain proper posture and prevent injuries.
 
-![PostureDetector Demo](https://via.placeholder.com/800x400?text=PostureDetector+Demo)
+[Link to website](https://realfy-assignment-posturedetection.vercel.app/)
 
 ## 📑 Table of Contents
 
@@ -45,7 +45,7 @@ To get started with PostureDetector, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/posturedetector.git
+git clone https://github.com/pratsha2005/realfy-assignment-posturedetection.git
 cd posturedetector
 ```
 
@@ -60,8 +60,6 @@ npm install
 ```bash
 npm run dev
 ```
-
-4. Open your browser and navigate to `http://localhost:5173`
 
 ## 📲 Usage
 
@@ -130,235 +128,6 @@ Based on predetermined safe angle ranges, the system provides real-time feedback
 
 When angles fall outside these ranges, the skeleton turns red to indicate improper form.
 
-## 📁 Project Structure
-
-```
-posturedetector/
-│
-├── public/
-│   ├── vite.svg
-│   ├── Pushups.jpg (needed)
-│   └── Squats.webp (needed)
-│
-├── src/
-│   ├── components/
-│   │   ├── Buttons.jsx
-│   │   └── Card.jsx
-│   │
-│   ├── pages/
-│   │   ├── HomePage.jsx
-│   │   ├── PushUps.jsx
-│   │   ├── Squats.jsx
-│   │   └── home.css
-│   │
-│   ├── utilities/
-│   │   └── calculateAngle.js
-│   │
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-│
-├── .gitignore
-├── eslint.config.js
-├── index.html
-├── package.json
-└── README.md
-```
-
-## 💻 Code Walkthrough
-
-### Main Application
-
-```jsx
-// src/App.jsx
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import Squats from './pages/Squats'
-import PushUps from './pages/PushUps'
-
-function RoutesList(){
-    return(
-        <Routes>
-            <Route path='/' element = {<HomePage/>}/>
-            <Route path='squats' element = {<Squats/>}/>
-            <Route path='pushups' element = {<PushUps/>}/>
-        </Routes>
-    )
-}
-
-function App() {
-  return (
-    <Router>
-        <RoutesList/>
-    </Router>
-  )
-}
-
-export default App
-```
-
-### Home Page
-
-```jsx
-// src/pages/HomePage.jsx
-import React from 'react';
-import "./home.css"
-import { NavLink } from 'react-router-dom';
-const HomePage = () => {
-  return (
-    <div id = "body" className="flex h-screen w-screen">
-      {/* Left Image */}
-      <div className="w-1/3 h-full" id = "pushups">
-        <NavLink to={"pushups"}>
-        <img
-          src="./Pushups.jpg"
-          alt="Left"
-          className="object-cover w-full h-full"
-        />
-        </NavLink>
-      </div>
-
-      <div className="w-1/3 h-full flex items-center justify-center" id = "text">
-        <h2 className="text-3xl text-center">
-          Choose Squats or PushUps
-        </h2>
-      </div>
-
-      {/* Right Image */}
-      <div className="w-1/3 h-full" id = "squats">
-        <NavLink to={"squats"}>
-        <img
-          src="./Squats.webp"
-          alt="Right"
-          className="object-cover w-full h-full"
-        />
-        </NavLink>
-      </div>
-    </div>
-  );
-};
-
-export default HomePage;
-```
-
-### Squats Detection
-
-```jsx
-// src/pages/Squats.jsx (abbreviated)
-import React, {useEffect, useRef, useState} from "react"
-import Webcam from "react-webcam"
-import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-vision"
-import Card from "../components/Card"
-import {calculateAngle} from "../utilities/calculateAngle.js"
-
-let poseLandmarker = undefined
-let lastVideoTime = -1
-
-function Squats() {
-    const webRef = useRef(null)
-    const canvasRef = useRef(null)
-    const [backAngle, setBackAngle] = useState(0)
-    const [kneeAngle, setKneeAngle] = useState(0)
-    
-    // ...initialization code...
-    
-    const squatDetection = async() => {
-        // ...video setup...
-        
-        poseLandmarker.detectForVideo(video, startTimeMs, (result) => {
-            // Draw skeleton in green by default
-            
-            // Calculate angles
-            const shoulder = [result.landmarks[0][11].x, result.landmarks[0][11].y]
-            const hip = [result.landmarks[0][23].x, result.landmarks[0][23].y]
-            const knee = [result.landmarks[0][25].x, result.landmarks[0][25].y]
-            const ankle = [result.landmarks[0][27].x, result.landmarks[0][27].y]
-
-            const angle1 = calculateAngle(shoulder, hip, knee)
-            setBackAngle(angle1)
-            
-            const angle2 = calculateAngle(hip, knee, ankle)
-            setKneeAngle(angle2)
-
-            // Check form and change skeleton to red if incorrect
-            if(kneeAngle < 80 || backAngle < 130){
-                // Draw skeleton in red for bad form
-            }
-        });
-    }
-    
-    // ...rendering code...
-}
-
-export default Squats
-```
-
-### Push-ups Detection
-
-```jsx
-// src/pages/PushUps.jsx (abbreviated)
-import React, {useEffect, useRef, useState} from "react"
-import Webcam from "react-webcam"
-import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-vision"
-import Card from "../components/Card"
-import {calculateAngle} from "../utilities/calculateAngle.js"
-
-// ...similar structure to Squats.jsx with different angle calculations...
-
-function PushUps() {
-    // ...setup code...
-    
-    const pushUpDetection = async() => {
-        // ...video setup...
-        
-        poseLandmarker.detectForVideo(video, startTimeMs, (result) => {
-            // Draw skeleton in green by default
-            
-            // Calculate different angles for push-ups
-            const shoulder = [result.landmarks[0][11].x, result.landmarks[0][11].y]
-            const elbow = [result.landmarks[0][13].x, result.landmarks[0][13].y]
-            const wrist = [result.landmarks[0][15].x, result.landmarks[0][15].y]
-            const hip = [result.landmarks[0][23].x, result.landmarks[0][23].y]
-            const knee = [result.landmarks[0][25].x, result.landmarks[0][25].y]
-            
-            // Calculate Elbow Angle
-            const angle1 = calculateAngle(shoulder, elbow, wrist)
-            setElbowAngle(angle1)
-            
-            // Calculate Back Angle
-            const angle2 = calculateAngle(shoulder, hip, knee)
-            setBackAngle(angle2)
-
-            // Check form and change skeleton to red if incorrect
-            if(elbowAngle < 80 || backAngle < 150){
-                // Draw skeleton in red for bad form
-            }
-        });
-    }
-    
-    // ...rendering code...
-}
-
-export default PushUps
-```
-
-### Angle Calculation Utility
-
-```javascript
-// src/utilities/calculateAngle.js
-export function calculateAngle(a, b, c) {
-    const radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
-    let angle = Math.abs(radians * 180.0 / Math.PI);
-
-    if (angle > 180.0) {
-        angle = 360 - angle;
-    }
-
-    return angle;
-}
-```
-
 ## 🔧 Customization
 
 ### Adding New Exercises
@@ -386,21 +155,9 @@ if(elbowAngle < 80 || backAngle < 150){
     // Draw red skeleton
 }
 ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a new branch: `git checkout -b feature-name`
-3. Make your changes and commit them: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature-name`
-5. Submit a pull request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
-Built with ❤️ using React and MediaPipe
