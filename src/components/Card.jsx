@@ -1,16 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
-function Card({angle1, angle2, text1, text2}) {
+function Card({ angle1, angle2, text1, text2 }) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  
   return (
-    
-    <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    <p class="font-normal text-gray-700 dark:text-gray-400">
-        {text1} : {angle1}
+    <div className={`${isMobile ? 'max-w-xs' : 'max-w-sm'} p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}>
+      <p className={`font-normal text-gray-700 dark:text-gray-400 ${isMobile ? 'text-sm' : 'text-base'}`}>
+        {text1}: {Math.round(angle1)}°
         <br />
-       {text2} : {angle2}
-    </p>
+        {text2}: {Math.round(angle2)}°
+      </p>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;

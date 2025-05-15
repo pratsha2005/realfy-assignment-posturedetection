@@ -1,16 +1,21 @@
-#body{
-    display: flex
+#body {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
 }
 
-
-@media only screen and (max-width: 768px){
-    #body{
-        flex-direction: column;
-    }
-    #squats{
-        margin-bottom: 10
-    }
-    #pushups{
-        margin: 10
-    }
-} 
+/* Mobile styles are now handled with Tailwind classes in the JSX */
+@media only screen and (max-width: 768px) {
+  #body {
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  
+  #pushups, #squats {
+    height: 33vh; /* Control height on mobile */
+  }
+  
+  #text {
+    padding: 2rem 1rem;
+  }
+}
