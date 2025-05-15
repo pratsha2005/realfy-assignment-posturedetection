@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Squats from './pages/Squats'
 import PushUps from './pages/PushUps'
@@ -12,15 +12,15 @@ const NavBar = () => {
   return isMobile ? (
     <nav className="fixed bottom-0 left-0 right-0 bg-gray-800 z-50 p-2">
       <div className="flex justify-around">
-        <a href="/" className="text-white text-center px-4 py-2">
+        <NavLink to={"/"} className="text-white text-center px-4 py-2">
           Home
-        </a>
-        <a href="/squats" className="text-white text-center px-4 py-2">
+        </NavLink>
+        <NavLink to={"squats"} className="text-white text-center px-4 py-2">
           Squats
-        </a>
-        <a href="/pushups" className="text-white text-center px-4 py-2">
+        </NavLink>
+        <NavLink to={"pushups"} className="text-white text-center px-4 py-2">
           Push-ups
-        </a>
+        </NavLink>
       </div>
     </nav>
   ) : null
