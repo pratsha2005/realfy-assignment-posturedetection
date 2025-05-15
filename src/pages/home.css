@@ -1,0 +1,16 @@
+#body{
+    display: flex
+}
+
+
+@media only screen and (max-width: 768px){
+    #body{
+        flex-direction: column;
+    }
+    #squats{
+        margin-bottom: 10
+    }
+    #pushups{
+        margin: 10
+    }
+} 

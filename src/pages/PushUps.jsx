@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import Webcam from "react-webcam"
 import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-vision"
 import Card from "../components/Card"
@@ -101,7 +101,7 @@ function PushUps() {
             });
         }
     }
-    detectPosture()
+    useEffect(detectPosture, [])
 
   return (
     <>
