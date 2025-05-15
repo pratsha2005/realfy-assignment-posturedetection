@@ -11,7 +11,7 @@ const HomePage = () => {
 
         
         <img
-          src="src\assets\Pushups.jpg"
+          src="./Pushups.jpg"
           alt="Left"
           className="object-cover w-full h-full"
         />
@@ -31,7 +31,7 @@ const HomePage = () => {
 
         
         <img
-          src="src\assets\Squats.webp"
+          src="./Squats.webp"
           alt="Right"
           className="object-cover w-full h-full"
         />
