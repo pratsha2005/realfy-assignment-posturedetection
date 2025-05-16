@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import Squats from './pages/Squats'
 import PushUps from './pages/PushUps'
 import { useMediaQuery } from './hooks/useMediaQuery' // New import for responsive design
-
+import {Analytics} from '@vercel/analytics/react'
 // NavBar Component for mobile navigation
 const NavBar = () => {
   const isMobile = useMediaQuery('(max-width: 768px)')
@@ -40,7 +40,9 @@ function App() {
   return (
     <Router>
         <RoutesList/>
-        <NavBar /> {/* Added navigation bar for mobile */}
+        <NavBar />
+         {/* Added navigation bar for mobile */}
+         <Analytics/>
     </Router>
   )
 }
